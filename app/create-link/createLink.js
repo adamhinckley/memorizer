@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react';
 const CreateLink = () => {
 	const [value, setValue] = useState('');
 	const [urlValue, setUrlValue] = useState('second');
+	const [buttonTitle, setButtonTitle] = useState('Create Link');
 
 	const onChange = (event) => {
 		setValue(event.target.value);
+		if (buttonTitle === 'Copied!') {
+			setButtonTitle('Create Link');
+		}
 	};
 
 	const handleClick = () => {
@@ -22,14 +26,8 @@ const CreateLink = () => {
 		const originToUse = isLocal ? host : origin;
 
 		const textToCopy = `${originToUse}/shared-link?${param}`;
-		console.log('textToCopy', textToCopy);
-		console.log('window.location', window.location);
 		navigator.clipboard.writeText(textToCopy);
-
-		const paramsString = decodeURIComponent(param);
-		// replace + with empty space
-		const spaces = paramsString.replace(/\+/g, ' ');
-		//
+		setButtonTitle('Copied!');
 	};
 
 	useEffect(() => {
@@ -42,6 +40,7 @@ const CreateLink = () => {
 
 	return (
 		<div className="flex flex-col w-full max-w-2xl">
+			<p className="text-center mb-8 font-bold">Copy the link below to share</p>
 			<textarea
 				value={value}
 				onChange={onChange}
@@ -53,7 +52,7 @@ const CreateLink = () => {
 				onClick={handleClick}
 				disabled={!value}
 			>
-				Create Link
+				{buttonTitle}
 			</button>
 		</div>
 	);

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import TextArea from './components/textArea';
 
 export default function Home() {
