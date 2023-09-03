@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef } from 'react';
-import DisappearingWords from './disappearingWords';
+import DisappearingWords from '../components/disappearingWords';
 import ClickToRemove from '../input/clickToRemove';
 
 const TextArea = () => {

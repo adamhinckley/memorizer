@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 const CreateLink = () => {
 	const [value, setValue] = useState('');
 	const [urlValue, setUrlValue] = useState('second');
-	const [buttonTitle, setButtonTitle] = useState('Create Link');
+	const [buttonTitle, setButtonTitle] = useState('Copy Link');
 
 	const onChange = (event) => {
 		setValue(event.target.value);
@@ -15,9 +15,6 @@ const CreateLink = () => {
 
 	const handleClick = () => {
 		const param = encodeURIComponent(value);
-		// add params to url
-		// window.history.pushState({}, '', `?${param}`);
-		console.log('param', param);
 		const { origin, pathname, host } = window.location;
 		// copy url to clipboard
 
@@ -36,15 +33,14 @@ const CreateLink = () => {
 		const decodedUrl = decodeURIComponent(window.location.search);
 		const spaces = decodedUrl.replace(/\+/g, ' ');
 		setUrlValue(spaces);
-	}, [window.location.search]);
+	}, []);
 
 	return (
 		<div className="flex flex-col w-full max-w-2xl">
-			<p className="text-center mb-8 font-bold">Copy the link below to share</p>
 			<textarea
 				value={value}
 				onChange={onChange}
-				placeholder="Add the text you want to memorize here..."
+				placeholder="Add the text you want to share with someone here..."
 				className=" w-full h-1/3 rounded border"
 			/>
 			<button
