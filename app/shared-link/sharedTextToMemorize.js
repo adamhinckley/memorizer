@@ -3,14 +3,17 @@ import { useState } from 'react';
 import { replaceEscapeCharactersWithEmptyString } from '../util/helpers';
 
 const SharedTextToMemorize = () => {
-	const text = window.location.search;
+	const [hiddenIndices, setHiddenIndices] = useState([]);
+	const text = window ? window.location.search : '';
+
+	if (!text) {
+		return null;
+	}
 	const decodedUrl = decodeURIComponent(text).slice(1);
 
 	const spaces = decodedUrl.replace(/\+/g, ' ');
 	const array = spaces.split(' ');
 	const arrayToMemorize = replaceEscapeCharactersWithEmptyString(array);
-
-	const [hiddenIndices, setHiddenIndices] = useState([]);
 
 	const handleRemove = (index) => {
 		setHiddenIndices((prev) => [...prev, index]);
