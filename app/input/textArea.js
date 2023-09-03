@@ -1,36 +1,15 @@
 'use client';
 import { useState, useRef } from 'react';
-import DisappearingWords from './disappearingWords';
-import ClickToRemove from '../input/clickToRemove';
+import DisappearingWords from '../components/disappearingWords';
+import ClickToRemove from './clickToRemove';
+import { replaceEscapeCharactersWithEmptyString } from '../util/helpers';
 
 const TextArea = () => {
 	const [value, setValue] = useState('');
 	const [arrayToMemorize, setArrayToMemorize] = useState([]);
 
 	const onChange = (event) => {
-		console.log(event.target.value);
 		setValue(event.target.value);
-	};
-
-	const replaceEscapeCharactersWithEmptyString = (array) => {
-		const newArray = [];
-		array.forEach((word) => {
-			if (word.includes('\n')) {
-				const splitWord = word.split('\n');
-				splitWord.forEach((word, index) => {
-					if (index < splitWord.length - 1 && word !== '') {
-						newArray.push(word, '');
-					} else {
-						newArray.push(word);
-					}
-				});
-			} else {
-				newArray.push(word);
-			}
-		});
-
-		console.log('newArray', newArray);
-		return newArray;
 	};
 
 	const handleClick = () => {
@@ -58,6 +37,7 @@ const TextArea = () => {
 		</div>
 	) : (
 		<div className="flex flex-col">
+			{/* <DisappearingWords arrayToMemorize={arrayToMemorize} /> */}
 			<ClickToRemove
 				arrayToMemorize={arrayToMemorize}
 				setArrayToMemorize={setArrayToMemorize}

@@ -5,7 +5,6 @@ const DisappearingWords = ({ arrayToMemorize }) => {
 	const [hiddenIndices, setHiddenIndices] = useState([]);
 	const [shuffledIndices, setShuffledIndices] = useState([]);
 	const [amountToSplice, setAmountToSplice] = useState(0);
-	// const incrementer = useRef(1);
 
 	const disappear = () => {
 		if (shuffledIndices.length === 0) {
