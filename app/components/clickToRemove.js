@@ -22,6 +22,7 @@ const ClickToRemove = ({ arrayToMemorize, setArrayToMemorize, setValue }) => {
 
 	return (
 		<div className="flex flex-col w-full max-w-2xl cursor-pointer">
+			<p className="text-center mb-8">Click on words to hide/show them</p>
 			<div w-full max-w-2xl>
 				{arrayToMemorize.map((word, index) => {
 					const isHidden = hiddenIndices.includes(index);
