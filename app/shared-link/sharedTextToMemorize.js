@@ -1,19 +1,18 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { replaceEscapeCharactersWithEmptyString } from '../util/helpers';
 
 const SharedTextToMemorize = () => {
 	const [hiddenIndices, setHiddenIndices] = useState([]);
-	const text = window ? window.location.search : '';
-
-	if (!text) {
-		return null;
-	}
-	const decodedUrl = decodeURIComponent(text).slice(1);
+	const [decodedUrl, setDecodedUrl] = useState('');
 
 	const spaces = decodedUrl.replace(/\+/g, ' ');
 	const array = spaces.split(' ');
 	const arrayToMemorize = replaceEscapeCharactersWithEmptyString(array);
+
+	useEffect(() => {
+		setDecodedUrl(decodeURIComponent(window.location.search).slice(1));
+	}, []);
 
 	const handleRemove = (index) => {
 		setHiddenIndices((prev) => [...prev, index]);
