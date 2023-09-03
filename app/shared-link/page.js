@@ -1,3 +1,5 @@
+'use client';
+
 import SharedTextToMemorize from './sharedTextToMemorize';
 
 export default function Create() {
