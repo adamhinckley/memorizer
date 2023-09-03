@@ -2,15 +2,14 @@
 import { useState } from 'react';
 import { replaceEscapeCharactersWithEmptyString } from '../util/helpers';
 
-const text = window.location.search;
-const decodedUrl = decodeURIComponent(text).slice(1);
-// remove "?" from beginning of decodedUrl
-
-const spaces = decodedUrl.replace(/\+/g, ' ');
-const array = spaces.split(' ');
-const arrayToMemorize = replaceEscapeCharactersWithEmptyString(array);
-
 const SharedTextToMemorize = () => {
+	const text = window.location.search;
+	const decodedUrl = decodeURIComponent(text).slice(1);
+
+	const spaces = decodedUrl.replace(/\+/g, ' ');
+	const array = spaces.split(' ');
+	const arrayToMemorize = replaceEscapeCharactersWithEmptyString(array);
+
 	const [hiddenIndices, setHiddenIndices] = useState([]);
 
 	const handleRemove = (index) => {
