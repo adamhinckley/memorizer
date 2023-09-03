@@ -33,12 +33,12 @@ const ClickToRemove = ({ arrayToMemorize, setArrayToMemorize, setValue }) => {
 						<span
 							key={index}
 							onClick={() => handleAdd(index)}
-							className="text-transparent border-b border-black"
+							className="text-transparent border-b border-black mr-1"
 						>
 							{word}{' '}
 						</span>
 					) : (
-						<span key={index} onClick={() => handleRemove(index)}>
+						<span key={index} onClick={() => handleRemove(index)} className="mr-1">
 							{word}{' '}
 						</span>
 					);
