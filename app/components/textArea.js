@@ -44,7 +44,7 @@ const TextArea = () => {
 				value={value}
 				onChange={onChange}
 				placeholder="Add the text you want to memorize here..."
-				className=" w-full h-1/3 rounded "
+				className=" w-full h-1/3 rounded border"
 			/>
 			{!arrayToMemorize.length && (
 				<button
