@@ -2,28 +2,23 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-const getLocation = () => {
-	let location = 'Location not available';
-	return navigator.geolocation?.getCurrentPosition(
-		(position) => {
-			const lat = position.coords.latitude;
-			const lng = position.coords.longitude;
-			const accuracy = position.coords.accuracy; // in meters
-
-			return ` ${lat.toFixed(4)}, ${lng.toFixed(4)}, Accuracy: ${accuracy} meters`;
-		},
-		(error) => {
-			console.error('Error getting location:', error.message);
-		},
-		{ enableHighAccuracy: true }
-	);
-};
-
 export default function Home() {
 	const [location, setLocation] = useState('Getting location...');
 
 	useEffect(() => {
-		navigator.geolocation?.getCurrentPosition(
+		// Check if geolocation is available
+		if (!navigator.geolocation) {
+			setLocation('Geolocation is not supported by your browser');
+			return;
+		}
+
+		// Check if we're in a secure context (HTTPS or localhost)
+		if (!window.isSecureContext) {
+			setLocation('⚠️ Geolocation requires HTTPS. Please deploy with HTTPS enabled.');
+			return;
+		}
+
+		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				const lat = position.coords.latitude;
 				const lng = position.coords.longitude;
@@ -33,10 +28,26 @@ export default function Home() {
 				);
 			},
 			(error) => {
-				console.error('Error getting location:', error.message);
-				setLocation('Location not available');
+				console.error('Error getting location:', error);
+				let errorMsg = 'Location not available';
+				
+				switch (error.code) {
+					case error.PERMISSION_DENIED:
+						errorMsg = '❌ Location permission denied. Please enable location access in your browser settings.';
+						break;
+					case error.POSITION_UNAVAILABLE:
+						errorMsg = '❌ Location information unavailable.';
+						break;
+					case error.TIMEOUT:
+						errorMsg = '❌ Location request timed out.';
+						break;
+					default:
+						errorMsg = `❌ Error getting location: ${error.message}`;
+				}
+				
+				setLocation(errorMsg);
 			},
-			{ enableHighAccuracy: true }
+			{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
 		);
 	}, []);
 	return (
